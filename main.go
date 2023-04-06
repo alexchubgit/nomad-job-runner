@@ -30,6 +30,8 @@ func main() {
 	router.HandleFunc("/bash", bash.GetEcho).Methods("GET")
 	router.HandleFunc("/validate", bash.Validate).Methods("GET")
 
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
+
 	fmt.Println("Server running on port 8000")
 	http.ListenAndServe(":8000", router)
 }

@@ -1,6 +1,6 @@
 ## Nomad Job Runner
 
-### Build image and push to repo
+### Build image and push to the registry
 docker build -t registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest .
 docker push registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest
 docker image rmi registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest
