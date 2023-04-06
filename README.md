@@ -1,16 +1,12 @@
-# API manage nomad jobs app
+## Nomad Job Runner
 
-### Build Image
+### Build image and push to repo
 docker build -t registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest .
 docker push registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest
 docker image rmi registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest
 
-### Test build
-docker run -d -p 8000:8000 --name nomad-jobs-runner registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner
-
-### Environment variables
-NOMAD_TOKEN=24391954-3d95-b29c-f1ff-1ea40908bec2
-NOMAD_ADDR=http://10.35.35.10:4646
+### Run image locally
+docker run -d -p 8000:8000 --env NOMAD_TOKEN=24391954-3d95-b29c-f1ff-1ea40908bec2 --env NOMAD_ADDR=http://10.35.35.10:4646 --name nomad-jobs-runner registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner
 
 ### Mount app files
 /mnt/cephfs.... to /app/files
@@ -29,5 +25,4 @@ Download ZIP from Github
 `http://localhost:8000/validate`
 
 ### Licensing
-
 API phones is [MIT licensed](./LICENSE).
