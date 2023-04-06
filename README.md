@@ -1,5 +1,20 @@
 # API manage nomad jobs app
 
+### Build Image
+docker build -t registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest .
+docker push registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest
+docker image rmi registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner:latest
+
+### Test build
+docker run -d -p 8000:8000 --name nomad-jobs-runner registry.service.simedarby.demo/nomad-jobs/nomad-jobs-runner
+
+### Environment variables
+NOMAD_TOKEN=24391954-3d95-b29c-f1ff-1ea40908bec2
+NOMAD_ADDR=http://10.35.35.10:4646
+
+### Mount app files
+/mnt/cephfs.... to /app/files
+
 ### Connection with MySQL database
 Create .env file
 Add string with your parameters
