@@ -2,9 +2,15 @@ package jobs
 
 import (
 	"database/sql"
+	"encoding/json"
 	"net/http"
 	"os"
 )
+
+type Job struct {
+	IDJOB int    `json:"idjob"`
+	Job   string `json:"job"`
+}
 
 var db *sql.DB
 var err error
@@ -24,4 +30,28 @@ func GetJobs(w http.ResponseWriter, r *http.Request) {
 
 	defer db.Close()
 
+	var jobs []Job
+
+	result, err := db.Query("SELECT idjob, job FROM jobs ORDER BY `job`")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer result.Close()
+
+	for result.Next() {
+
+		var job Job
+
+		err := result.Scan(&job.IDJOB, &job.Job)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		jobs = append(jobs, job)
+	}
+
+	json.NewEncoder(w).Encode(jobs)
 }
